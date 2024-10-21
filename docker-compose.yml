@@ -30,7 +30,7 @@ services:
 
   mariadb:
     # image: mariadb:10.6.16
-    image: mariadb:11.5.2
+    image: mariadb:11.5.2 # Version MariaDB: 11.5.2-MariaDB-ubu2404
     container_name: symfony-aplicacion-mariadb
     environment:
       MARIADB_ROOT_PASSWORD: root   # Cambia esto por una contraseña segura

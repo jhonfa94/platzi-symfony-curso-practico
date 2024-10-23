@@ -46,25 +46,39 @@ Después de crear las migraciones se procede a sincronizar estas migraciones en 
 Solicita confirmacion de la migración, lo cual se debe indicar que si. 
 Con esto se configura las tablas en la base de datos. 
 
-##
+## Crear una relación
 ```
+    php bin/console make:entity
+```
+Indicamos con la entidad, luego se debe agregar el nombre de la propiedad para la relación.
+Cuando la relación se tiene de uno a muchos se recomienda que esta se deje el nombre el prural, ejemplo posts.
+
+Luego de realizar los cambios en la creación de las relaciones, se debe crear la migración
+
+## Crear migracion y migrar
+```
+    php bin/console make:migration
+    php bin/console doctrine:migrations:migrate
 ```
 
-##
+## Instalar componente para la parte administrativa
 ```
+    composer require easycorp/easyadmin-bundle
+```
+A través de este componente se habilitan nuevas opciones desde la consola como la creación del dashaboard y la parte del crud
+
+
+
+## Creación del Admin Dashboard a partir del easyadmin
+```
+    php bin/console make:admin:dashboard
 ```
 
-##
+## Creación del primer CRUD
 ```
+    php bin/console make:admin:crud
 ```
-
-##
-```
-```
-
-##
-```
-```
+Se visualizaa el listado de entidades para indicar con cual se vaa  trabajar
 
 ##
 ```

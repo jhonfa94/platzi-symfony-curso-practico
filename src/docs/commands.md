@@ -80,20 +80,107 @@ A través de este componente se habilitan nuevas opciones desde la consola como 
 ```
 Se visualizaa el listado de entidades para indicar con cual se vaa  trabajar
 
-##
+## Instalar paquete para los datos semillas
 ```
+    composer require orm-fixtures --dev
 ```
+
+## Paquete del proveedor de datos falsos
+```
+    composer require zenstruck/foundry --dev
+```
+
+## Crear archivos factory
+```
+    php bin/console make:factory
+```
+
+## Comando para cargar los datos falsos
+```
+    php bin/console doctrine:fixtures:load
+```
+
+## Crear entidad de los usuarios
+```
+    php bin/console make:user
+```
+Este comando es el mismo relacionado con entity, pero enfocado a la entidad de usuarios
+
+Luego de crear la entidad de usuarios, se procede a crear la migración  
+
+## Crear migración
+```
+    php bin/console make:migration
+```
+
+## Ejecutar la migración en la tabla de la base de datos
+```
+     php bin/console doctrine:migrations:migrate
+```
+
+## Crear el sistema de autenticación
+```
+    php bin/console make:auth
+```
+Luego de ejecutar el comando en consola, se debe seleccionar la opción, para ello se determina la opción de 1, la cual es un formulario de autenticación
+
+Después de llevar el paso a paso del asistente, se debe tener presente la redirección. 
+
+
+## Crear formulario de registro de usuarios
+```
+    php bin/console make:registration-form
+```
+Para habilitar la autenticación en el aplicativo, se debe ir a config/packages/security.yaml, y de allí habilitar el access_control 
+
+
+## Configuración de CRUD para usuarios
+```
+    php bin/console make:admin:crud
+```
+
+## Eliminar la base de datos
+```
+    php bin/console doctrine:database:drop --force
+```
+Esto solo se realiza en pruebas o de primera instancia. 
+
+
+## Crear la base de datos
+```
+    php bin/console doctrine:database:create
+```
+
+## Ejecutar las migraciones ya creadas
+```
+    php bin/console doctrine:migrations:migrate
+```
+
+## Crear el factory de los usuarios 
+```
+    php bin/console make:factory
+```
+Se debe seleccionar la entidad. 
+
+## Ejecutar los datos falsos
+```
+    php bin/console doctrine:fixtures:load
+```
+
 
 ##
 ```
 ```
 
-##
-```
-```
 
 ##
 ```
 ```
+
+
+##
+```
+```
+
 
 

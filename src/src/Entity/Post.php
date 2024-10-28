@@ -8,7 +8,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[UniqueEntity('slug')]
 class Post
 {
     #[ORM\Id]
@@ -19,7 +22,7 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -29,15 +32,20 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    /**
-     * @var Collection<int, Comment>
-     */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true)]
-    private Collection $commets;
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['id' => 'DESC'])]
+    private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    private ?User $user = null;
+
+//    #[ORM\ManyToOne(inversedBy: 'posts')]
+//    #[ORM\JoinColumn(nullable: false)]
+//    private ?User $user = null;
 
     public function __construct()
     {
-        $this->commets = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -50,7 +58,7 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -62,7 +70,7 @@ class Post
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
+    public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
@@ -74,7 +82,7 @@ class Post
         return $this->content;
     }
 
-    public function setContent(string $content): static
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -86,7 +94,7 @@ class Post
         return $this->category;
     }
 
-    public function setCategory(?Category $category): static
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
@@ -96,30 +104,59 @@ class Post
     /**
      * @return Collection<int, Comment>
      */
-    public function getCommets(): Collection
+    public function getComments(): Collection
     {
-        return $this->commets;
+        return $this->comments;
     }
 
-    public function addCommet(Comment $commet): static
+    public function addComment(Comment $comment): self
     {
-        if (!$this->commets->contains($commet)) {
-            $this->commets->add($commet);
-            $commet->setPost($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setPost($this);
         }
 
         return $this;
     }
 
-    public function removeCommet(Comment $commet): static
+    public function removeComment(Comment $comment): self
     {
-        if ($this->commets->removeElement($commet)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($commet->getPost() === $this) {
-                $commet->setPost(null);
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
             }
         }
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return (string) $this->getTitle();
+    }
+
+//    public function getUser(): ?User
+//    {
+//        return $this->user;
+//    }
+//
+//    public function setUser(?User $user): self
+//    {
+//        $this->user = $user;
+//
+//        return $this;
+//    }
+
+public function getUser(): ?User
+{
+    return $this->user;
+}
+
+public function setUser(?User $user): static
+{
+    $this->user = $user;
+
+    return $this;
+}
 }

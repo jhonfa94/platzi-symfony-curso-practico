@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PageController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% for post in posts  %}
+
+        <h2>
+            <a href="{{ path('app_post', {slug: post.slug}) }}" class="text-dark text-decoration-none">
+                {{ post.title }}
+            </a>
+        </h2>
+
+        {% include('page/_info.html.twig') %}
+
+        <hr>
+
+    {% endfor %}
+</div>
+{% endblock %}

@@ -133,7 +133,7 @@ class Post
 
     public function __toString(): string
     {
-        return (string) $this->getTitle();
+        return (string)$this->getTitle();
     }
 
 //    public function getUser(): ?User
@@ -148,15 +148,17 @@ class Post
 //        return $this;
 //    }
 
-public function getUser(): ?User
-{
-    return $this->user;
-}
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
-public function setUser(?User $user): static
-{
-    $this->user = $user;
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
-    return $this;
-}
+        return $this;
+    }
+
+
 }

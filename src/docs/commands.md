@@ -167,20 +167,30 @@ Se debe seleccionar la entidad.
     php bin/console doctrine:fixtures:load
 ```
 
+## Diseño Web con Boostrap
+```
+    composer require symfony/webpack-encore-bundle
+```
+Luebo de agregar las dependencia realizar las siguietes instrucciones:
+```
+   symfony/webpack-encore-bundle  instructions:
 
-##
-```
+  * Install NPM and run npm install
+
+  * Compile your assets for development: npm run dev
+
+  * Compile your assets for development and watch for any modifications: npm run watch
+
+  * Or start the development server: npm run dev-server
+
+  * Compile your assets for production: npm run build
 ```
 
+## Instalar Dependencias de Boostrap
+```
+    npm i bootstrap@5.3.3 --save
+```
 
-##
-```
-```
-
-
-##
-```
-```
 
 
 
